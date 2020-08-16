@@ -10,26 +10,47 @@
   <body>
     <p>this is irma frontend</p>
 
-    <div id="member-form-container">
-      <p>Add A New Member:</p>
-      <form id="member-form">
-        <label>Name:</label>
-        <input type="text" name="name" value="">
+    <div id="persona-form-container">
+      <p>Add A New Persona:</p>
+      <form id="persona-form">
+        <label>First Name:</label>
+        <input id="input-first-name" type="text" name="first-name" value="">
         <br/>
-        <label>Email:</label>
-        <input type="text" name="population" value="">
+        <label>Last Name:</label>
+        <input id="input-last-name" type="text" name="last-name" value="">
         <br/>
-        <label>Admin Level:</label>
-        <input type="text" name="population" value="">
+        <label>Date of Birth:</label>
+        <input id="input-dob" type="date" name="dob" value="">
         <br/>
-        <input type="submit" value="Submit Member">
+        <label>Sex:</label>
+        <input id="input-sex" type="text" name="sex" value="">
+        <br/>
+        <label>Race:</label>
+        <input id="input-race" type="text" name="race" value="">
+        <br/>
+        <p>Choose A Faction </p>
+        <select id="select-factions" name="factions">
+          <option value="1">Los Santos Sheriff's Dept</option>
+          <option value="2">Huslers</option>
+          <option value="3">Taxi</option>
+          <option value="4">NONE</option>
+        </select>
+        <br><br>
+        <select id="select-members" name="members">
+          <option value="1">Wayne</option>
+          <option value="2">Brendo</option>
+          <option value="3">Fussler</option>
+          <option value="4">NONE</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Create Persona">
       </form>
-    </div>
+    </div>  
     <p>==============</p>
 
 
 
-    <div id="members-container">
+    <div id="personas-container">
       
     </div>
 
