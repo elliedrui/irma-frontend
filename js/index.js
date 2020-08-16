@@ -14,7 +14,7 @@ function getPersonas() {
   .then(response => response.json())
   .then(personas => {
     personas.data.forEach(persona => {
-      const personasMarkup = `
+      const personaMarkup = `
         <div data-id=${persona.attributes.id}>
           <h3><span>Persona Name: ${persona.attributes.first_name} ${persona.attributes.last_name}</span></h3>
           <h4><span>Date of Birth: ${persona.attributes.dob}</span></h4>
@@ -26,7 +26,7 @@ function getPersonas() {
         </div>
         <br><br>
       `;
-      document.querySelector('#personas-container').innerHTML += personasMarkup
+      document.querySelector('#personas-container').innerHTML += personaMarkup
     })
   })
 }
@@ -67,6 +67,7 @@ function postFetch(first_name, last_name, dob, sex, race, faction_id, member_id)
         <h4><span>Belongs to Member: ${personaData.member.name}</span></h4>
         <button data-id=${personaData.id}>Edit</button>
       </div>
-    `
+    `;
+    document.querySelector('#personas-container').innerHTML += personaMarkup;
   })
 }
