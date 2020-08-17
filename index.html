@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+  
     <link href="/public/favicon.ico" rel="shortcut icon" />
     <meta charset="utf-8">
     <title>IRMA!</title>
@@ -8,32 +9,27 @@
    
   </head>
   <body>
-    <p>this is irma frontend</p>
+    <nav>
+      <button id="show-members-button" class="show-button" >Show All Members</button>
+      <button id="show-personas-button" class="show-button" >Show All Personas</button>
+    </nav>
+    <h1>Welcome to Illender's Roleplay Management Application-inator!</h1>
+    <p>This is IRMA's frontend</p>
 
-    <div id="member-form-container">
-      <p>Add A New Member:</p>
-      <form id="member-form">
-        <label>Name:</label>
-        <input type="text" name="name" value="">
-        <br/>
-        <label>Email:</label>
-        <input type="text" name="population" value="">
-        <br/>
-        <label>Admin Level:</label>
-        <input type="text" name="population" value="">
-        <br/>
-        <input type="submit" value="Submit Member">
-      </form>
-    </div>
+    <div id="persona-form-container">
+      
+    </div>  
     <p>==============</p>
 
 
 
-    <div id="members-container">
+    <div id="personas-container">
       
     </div>
 
-
+    <div id="members-container">
+      
+    </div>
 
   </body>
   <script type="text/javascript" src="js/index.js"></script>
