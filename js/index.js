@@ -1,6 +1,6 @@
-const personaContainer = document.getElementById('persona-container')
-const personasPath = "http://localhost:3000/api/v1/personas"
-const membersPath = "http://localhost:3000/api/v1/members"
+const personaContainer = document.getElementById('persona-container');
+const personasPath = "http://localhost:3000/api/v1/personas";
+const membersPath = "http://localhost:3000/api/v1/members";
 
 document.addEventListener('DOMContentLoaded', () => {
   
@@ -12,14 +12,16 @@ document.addEventListener('DOMContentLoaded', () => {
   createPersonasForm.addEventListener("submit", (e) => createFormHandler(e))
 
   showMembersButton.addEventListener("click", (e) => {
-    document.clear()
+    
     e.preventDefault
+    clearContainers()
     getMembers()
   })
 
   showPersonasButton.addEventListener("click", (e) => {
-    document.clear()
-    e.preventDefault  
+    
+    e.preventDefault 
+    clearContainers() 
     getPersonas()
     renderForm()
   })
@@ -32,27 +34,29 @@ function getPersonas() {
   .then(response => response.json())
   .then(personas => {
     personas.data.forEach(persona => {
-      const personaMarkup = `
-        <div data-id=${persona.attributes.id}>
-          <h3><span>Persona Name: ${persona.attributes.first_name} ${persona.attributes.last_name}</span></h3>
-          <h4><span>Date of Birth: ${persona.attributes.dob}</span></h4>
-          <h4><span>Sex: ${persona.attributes.sex}</span></h4>
-          <h4><span>Race: ${persona.attributes.race}</span></h4>
-          <h4><span>Faction Name: ${persona.attributes.faction.name}</span></h4>
-          <h4><span>Belongs to Member: ${persona.attributes.member.name}</span></h4>
-          <button class="edit" data-id=${personas.id}>Edit</button>
-          <button class="delete" data-id=${personas.id}>Delete</button>
-        </div>
-        <br><br>
-      `;
-      document.querySelector('#personas-container').innerHTML += personaMarkup
+      const personaData = persona.attributes
+      renderPersona(personaData)
+      // const personaMarkup = `
+      //   <div data-id=${persona.attributes.id}>
+      //     <h3><span>Persona Name: ${persona.attributes.first_name} ${persona.attributes.last_name}</span></h3>
+      //     <h4><span>Date of Birth: ${persona.attributes.dob}</span></h4>
+      //     <h4><span>Sex: ${persona.attributes.sex}</span></h4>
+      //     <h4><span>Race: ${persona.attributes.race}</span></h4>
+      //     <h4><span>Faction Name: ${persona.attributes.faction.name}</span></h4>
+      //     <h4><span>Belongs to Member: ${persona.attributes.member.name}</span></h4>
+      //     <button class="edit" data-id=${personas.id}>Edit</button>
+      //     <button class="delete" data-id=${personas.id}>Delete</button>
+      //   </div>
+      //   <br><br>
+      // `;
+      // document.querySelector('#personas-container').innerHTML += personaMarkup
     })
   })
-}
+};
 
 function getMembers() {
   
-  document.clear()
+  
   fetch(membersPath)
   .then(response => response.json())
   .then(members => {
@@ -63,13 +67,14 @@ function getMembers() {
           <h4><span>Email: ${member.attributes.email}</span></h4>
           <h4><span>Admin Level: ${member.attributes.admin_level}</span></h4>
           <button data-id=${members.id}>edit</button>
+          <button class="delete" data-id=${members.id}>Delete</button>
         </div>
         <br><br>
       `;
       document.querySelector('#members-container').innerHTML += membersMarkup
     })
   })
-}
+};
 
 function createFormHandler(e) {
   console.log(e)
@@ -82,7 +87,31 @@ function createFormHandler(e) {
   const factionInput = document.querySelector('#select-factions').value
   const memberInput = document.querySelector('#select-members').value
   postFetch(firstNameInput, lastNameInput, dobInput, sexInput, raceInput, factionInput, memberInput) 
-}
+};
+
+function clearContainers() {
+  document.querySelector('#members-container').innerHTML = ''
+  document.querySelector('#personas-container').innerHTML = ''
+  document.getElementById("persona-form-container").innerHTML = ''
+};
+
+function renderPersona(persona) {
+  
+  const personaMarkup = `
+    <div data-id=${persona.id}>
+      <h3><span>Persona Name: ${persona.first_name} ${persona.last_name}</span></h3>
+      <h4><span>Date of Birth: ${persona.dob}</span></h4>
+      <h4><span>Sex: ${persona.sex}</span></h4>
+      <h4><span>Race: ${persona.race}</span></h4>
+      <h4><span>Faction Name: ${persona.faction.name}</span></h4>
+      <h4><span>Belongs to Member: ${persona.member.name}</span></h4>
+      <button class="edit" data-id=${persona.id}>Edit</button>
+      <button class="delete" data-id=${persona.id}>Delete</button>
+    </div>
+  `;
+document.querySelector('#personas-container').innerHTML += personaMarkup;
+};
+
 
 function renderForm() {
 
@@ -125,7 +154,7 @@ function renderForm() {
       `;
       document.getElementById("persona-form-container").innerHTML += addPersonaFormMarkup
 
-}
+};
 
 
 function postFetch(first_name, last_name, dob, sex, race, faction_id, member_id) {
@@ -141,18 +170,7 @@ function postFetch(first_name, last_name, dob, sex, race, faction_id, member_id)
   .then(persona => {
   
     const personaData = persona.data.attributes
-    const personaMarkup = `
-      <div data-id=${persona.id}>
-        <h3><span>Persona Name: ${personaData.first_name} ${personaData.last_name}</span></h3>
-        <h4><span>Date of Birth: ${personaData.dob}</span></h4>
-        <h4><span>Sex: ${personaData.sex}</span></h4>
-        <h4><span>Race: ${personaData.race}</span></h4>
-        <h4><span>Faction Name: ${personaData.faction.name}</span></h4>
-        <h4><span>Belongs to Member: ${personaData.member.name}</span></h4>
-        <button class="edit" data-id=${personaData.id}>Edit</button>
-        <button class="delete" data-id=${personaData.id}>Delete</button>
-      </div>
-    `;
-    document.querySelector('#personas-container').innerHTML += personaMarkup;
+    renderPersona(personaData)
+
   })
-}
+};
