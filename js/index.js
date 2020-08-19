@@ -3,6 +3,7 @@ const formContainer = document.getElementById('form-container');
 const membersContainer = document.getElementById('members-container');
 const personasPath = "http://localhost:3000/api/v1/personas";
 const membersPath = "http://localhost:3000/api/v1/members";
+const personaSearchButton = document.getElementById('input-persona-faction-button')
 
 document.addEventListener('DOMContentLoaded', () => {
   
@@ -11,6 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const showMembersButton = document.getElementById("show-members-button")
 
   createPersonasForm.addEventListener("submit", (e) => createPersonaFormHandler(e))
+  
+  personaSearchButton.addEventListener("click", (e) => {
+    e.preventDefault
+    const factionNameSearch = document.getElementById('input-persona-faction').value
+    const searchResults = Persona.findByFactionName(factionNameSearch)
+    renderResults(searchResults)
+  })
 
   showMembersButton.addEventListener("click", (e) => {
     e.preventDefault
@@ -66,12 +74,38 @@ function createPersonaFormHandler(e) {
   personaPostFetch(firstNameInput, lastNameInput, dobInput, sexInput, raceInput, factionInput, memberInput) 
 };
 
+
+
 function clearContainers() {
   membersContainer.innerHTML = ''
   personasContainer.innerHTML = ''
   formContainer.innerHTML = ''
 };
 
+function renderResults(results) {
+  const resultsList = document.getElementById('search-results-list')
+  
+  results.forEach(function(personas) {
+    personas.forEach(function(persona) {
+      const resultsMarkup = `
+      <li>
+        <div data-id=${persona.id}>
+          <h3><span>Persona Name: ${persona.first_name} ${persona.last_name}</span></h3>
+          <h4><span>Date of Birth: ${persona.dob}</span></h4>
+          <h4><span>Sex: ${persona.sex}</span></h4>
+          <h4><span>Race: ${persona.race}</span></h4>
+          <h4><span>Faction Name: ${persona.faction_name}</span></h4>
+          <h4><span>Belongs to Member: ${persona.member_name}</span></h4>
+        </div>
+      </li>
+    `
+    resultsList.innerHTML += resultsMarkup
+
+    })
+   
+  })
+  
+}
 function renderForm() {
   const addPersonaFormMarkup = `
   <p>Add A New Persona:</p>
