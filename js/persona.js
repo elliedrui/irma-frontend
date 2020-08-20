@@ -31,7 +31,7 @@ class Persona {
   }
 
   static findByFactionName(input) {
-    
+    Persona.searchResults.length=0
     Persona.searchResults.push(this.all.filter(persona => persona.faction_name === input))
       return Persona.searchResults
   }

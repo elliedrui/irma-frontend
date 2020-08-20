@@ -4,6 +4,7 @@ const membersContainer = document.getElementById('members-container');
 const personasPath = "http://localhost:3000/api/v1/personas";
 const membersPath = "http://localhost:3000/api/v1/members";
 const personaSearchButton = document.getElementById('input-persona-faction-button')
+const searchResultsList = document.getElementById('search-results-list')
 
 document.addEventListener('DOMContentLoaded', () => {
   
@@ -80,11 +81,12 @@ function clearContainers() {
   membersContainer.innerHTML = ''
   personasContainer.innerHTML = ''
   formContainer.innerHTML = ''
+  searchResultsList.innerHTML = ''
 };
 
 function renderResults(results) {
   const resultsList = document.getElementById('search-results-list')
-  
+  searchResultsList.innerHTML = ''
   results.forEach(function(personas) {
     personas.forEach(function(persona) {
       const resultsMarkup = `
